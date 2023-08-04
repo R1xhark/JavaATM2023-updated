@@ -21,10 +21,10 @@ import java.sql.SQLException;
             String insertQuery = "INSERT INTO ClientInformation (client_name, card_number, pin,client_id) VALUES (?, ?, ?, ?)";
             PreparedStatement inserter = connection.prepareStatement(insertQuery);
 
-            preparedStatement.setString(1, newClient.getName());
-            preparedStatement.setString(2, newClient.getCardNumber());
-            preparedStatement.setString(3, newClient.getPin());
-            preparedStatement.setString(4, newClient.getId());
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, cardNumber);
+            preparedStatement.setInt(3, pin);
+            preparedStatement.setInt(4, id);
      
         
             int affected = inserter.executeUpdate();
