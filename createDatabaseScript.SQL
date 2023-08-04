@@ -1,5 +1,3 @@
-CREATE DATABASE LibertyBank;
-USE LibertyBank;
 CREATE TABLE ClientInformation (
     client_id INT AUTO_INCREMENT PRIMARY KEY,
     client_name VARCHAR(255) NOT NULL,
