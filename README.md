@@ -22,5 +22,5 @@ Tato aplikace kladný důraz na bezpečnost klientů a ukládání citlivých in
 
 ## Autor
 
-Tento projekt byl vytvořen Richard Dubny jako součást Java Portfolia. Pro více informací nás kontaktujte na richard@dubny.cz.
+Tento projekt byl vytvořen Richardem Dubnym jako součást Java Portfolia. Pro více informací nás kontaktujte na richard@dubny.cz.
 
