@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.mycompany.banksim;
 
 import java.sql.Connection;
@@ -9,9 +13,9 @@ import java.util.Scanner;
 
 public class LibertyDatabaseConnector {
 
-    private String jdbcHost = "jdbc:mysql://hostname/nazev_databaze";
-    private String dbUsername = "uzivatel";
-    private String dbPassword = "heslo";
+    private final static String jdbcHost = "jdbc:mysql://hostname/nazev_databaze";
+    private final static String dbUsername = "uzivatel";
+    private final static String dbPassword = "heslo";
 
     public Connection connector() throws SQLException {
         try {
@@ -97,7 +101,7 @@ public class LibertyDatabaseConnector {
 }
    public void vyber(long card_number, int amountToWithdraw) throws SQLException {
     Scanner scanner = new Scanner(System.in);
-    int maxAttempts = 3;
+    final int maxAttempts = 3;
     boolean pinMatched = false;
 
     for (int attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -150,7 +154,7 @@ public class LibertyDatabaseConnector {
 }
 public void printBalance(long card_number) throws SQLException {
     Scanner scanner = new Scanner(System.in);
-    int maxAttempts = 3;
+    final int maxAttempts = 3;
     boolean pinMatched = false;
 
     for (int attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -187,3 +191,4 @@ public void printBalance(long card_number) throws SQLException {
 
 }
     
+
