@@ -3,6 +3,7 @@ package com.mycompany.banksim;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -25,7 +26,7 @@ public class LibertyDatabaseConnector {
 
     public void addClient(String client_name, long card_number, int pin, int client_id) {
         try (Connection connect = connector()) {
-            String insertQuery = "INSERT INTO InformaceOKlientech (client_name, card_number, pin, client_id) VALUES (?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO Client_info (client_name, card_number, pin, client_id) VALUES (?, ?, ?, ?)";
             PreparedStatement vkladac = connect.prepareStatement(insertQuery);
 
             vkladac.setString(1, client_name);
@@ -61,7 +62,128 @@ public class LibertyDatabaseConnector {
         }
     }
 
-    public void clientInfoATM(long card_number, int client_id, int pin) {
-        // Implementace pro získání informací o klientovi na bankomatu
+    public void clientInfoATM(long card_number, int client_id, int pin) throws SQLException {
+    try (Connection connect = connector()) {
+        String printQuery = "SELECT * FROM Client_info WHERE card_number = ? AND client_id = ? AND pin = ?";
+        PreparedStatement printer = connect.prepareStatement(printQuery);
+
+        printer.setLong(1, card_number);
+        printer.setInt(2, client_id);
+        printer.setInt(3, pin);
+
+        ResultSet resultSet = printer.executeQuery();
+
+        if (resultSet.next()) {
+            
+            String clientName = resultSet.getString("client_name");
+            long retrievedCardNumber = resultSet.getLong("card_number");
+            int retrievedPin = resultSet.getInt("pin");
+            int retrievedClientId = resultSet.getInt("client_id");
+            int zustatek=resultSet.getInt("balance");
+
+            System.out.println("Client Name: " + clientName);
+            System.out.println("Card Number: " + retrievedCardNumber);
+            System.out.println("PIN: " + retrievedPin);
+            System.out.println("Client ID: " + retrievedClientId);
+            System.out.println("Zustatek je cini: " + zustatek);
+            
+        } else {
+            System.out.println("Takovy client neni v databazy");
+        }
+    } catch (SQLException e) {
+        System.out.println("An error occurred.");
+        e.printStackTrace();
     }
 }
+   public void vyber(long card_number, int amountToWithdraw) throws SQLException {
+    Scanner scanner = new Scanner(System.in);
+    int maxAttempts = 3;
+    boolean pinMatched = false;
+
+    for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+        System.out.print("Vlozte Pin (" + attempt + "/" + maxAttempts + "): ");
+        int enteredPin = scanner.nextInt();
+        
+        try (Connection connect = connector()) {
+            String checkPinQuery = "SELECT balance FROM Client_info WHERE card_number = ? AND pin = ?";
+            PreparedStatement checkPinStatement = connect.prepareStatement(checkPinQuery);
+            checkPinStatement.setLong(1, card_number);
+            checkPinStatement.setInt(2, enteredPin);
+
+            ResultSet resultSet = checkPinStatement.executeQuery();
+
+            if (resultSet.next()) {
+                pinMatched = true;
+                int currentBalance = resultSet.getInt("balance");
+                
+                if (amountToWithdraw > 0 && amountToWithdraw <= currentBalance) {
+                    int newBalance = currentBalance - amountToWithdraw;
+
+                    String updateBalanceQuery = "UPDATE Client_info SET balance = ? WHERE card_number = ?";
+                    PreparedStatement updateBalanceStatement = connect.prepareStatement(updateBalanceQuery);
+                    updateBalanceStatement.setInt(1, newBalance);
+                    updateBalanceStatement.setLong(2, card_number);
+
+                    int rowsUpdated = updateBalanceStatement.executeUpdate();
+                    if (rowsUpdated > 0) {
+                        System.out.println("Vyber Dokoncen! Vas novy zustatek je: " + newBalance);
+                    } else {
+                        System.out.println("Vyber selhal, prosim podivejte se na stvrzenku.");
+                        // kdybychom meli hardware co muze tisknout, vytisknuli bychom stvrzenku
+                    }
+                } else {
+                    System.out.println("Neplatny vyber");
+                }
+                break;
+            } else {
+                System.out.println("Limit pokusu prekrocen.");
+            }
+        } catch (SQLException e) {
+            System.out.println("error SQLExeption");
+            e.printStackTrace();
+        }
+    }
+
+    if (!pinMatched) {
+        System.out.println("SPATNY PIN!! NEZBYVA ZADNY POKUS! BLOKUJI KARTU!");
+    }
+}
+public void printBalance(long card_number) throws SQLException {
+    Scanner scanner = new Scanner(System.in);
+    int maxAttempts = 3;
+    boolean pinMatched = false;
+
+    for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+        System.out.print("Vlozte Pin (" + attempt + "/" + maxAttempts + "): ");
+        int enteredPin = scanner.nextInt();
+        
+        try (Connection connect = connector()) {
+            String checkPinQuery = "SELECT balance FROM Client_info WHERE card_number = ? AND pin = ?";
+            PreparedStatement checkPinStatement = connect.prepareStatement(checkPinQuery);
+            checkPinStatement.setLong(1, card_number);
+            checkPinStatement.setInt(2, enteredPin);
+
+            ResultSet resultSet = checkPinStatement.executeQuery();
+
+            if (resultSet.next()) {
+                pinMatched = true;
+                int currentBalance = resultSet.getInt("balance");
+                System.out.println("Vas zustek cini: " + currentBalance);
+                break;
+            } else {
+                System.out.println("Neplatny vyber");
+            }
+        } catch (SQLException e) {
+            System.out.println("error SQLExeption");
+            e.printStackTrace();
+        }
+    }
+
+    if (!pinMatched) {
+        System.out.println("SPATNY PIN!! NEZBYVA ZADNY POKUS! BLOKUJI KARTU!");
+    }
+}
+
+
+}
+    
