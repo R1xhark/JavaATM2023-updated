@@ -6,7 +6,7 @@ Jednoduchá Java aplikace simulující základní úkony v bance. Tento projekt 
 
 Tato aplikace je rozdělena do dvou hlavních částí (Zatim):
 
-1. **Správa klientů**: Tato část umožňuje vytváření nových klientů a jejich záznamu v databázi. Klienti jsou reprezentováni Javovou třídou "Klient", která obsahuje informace jako jméno, číslo karty a PIN. Metody jsou implementovány pro vytváření nových klientů a ukládání jejich údajů pomocí SQL příkazů do databázové tabulky. Tato část by měla být použita pouze pro počáteční naplnění databáze a neměla by být zahrnuta ve finální verzi bankomatové aplikace.
+1. **Správa klientů**: Tato část umožňuje vytváření nových klientů a jejich záznamu v databázi. Zde je možnost klienty přidat nebo klienty odebrat. Přidaní klientů obsahuje vygenerování náhodnych proměnnych client_id a card_number. K tomu používáme medotu třídy .util, a to java.util.Random.
 
 2. **ATM operace**: Tato část simuluje interakci s bankomatem. Umožňuje uživatelům získat informace o svém zůstatku a provádět operace jako výběry hotovosti. Aplikace poskytuje uživatelské rozhraní, které umožňuje snadnou interakci s bankomatovými funkcemi.
 
