@@ -1,6 +1,6 @@
 # Java ATM-Banking Simulátor
 
-Jednoduchá Java aplikace simulující zakkladni ukony v bance. Tento projekt se zaměřuje na poskytnutí základního zážitku z používání bankomatu s důrazem na bezpečnost a kvalitní kódování.
+Jednoduchá Java aplikace simulující základní úkony v bance. Tento projekt se zaměřuje na testovaní použítí SQL s Javou.
 
 ## Popis projektu
 
