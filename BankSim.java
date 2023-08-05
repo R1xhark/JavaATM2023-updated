@@ -26,7 +26,7 @@ public class BankSim {
                 default -> System.out.println("Neplatna volba. Zvolte 1 pro vytvoreni clienta nebo 2 pro emulaci ATM.");
             }
    } catch (InputMismatchException e) {
-    System.out.println("Neplatny vstup. Zadejte platne cislo.");
+    System.out.println("Neplatny vstup. Zadejte pouze cislo.");
 }
     }
 }
