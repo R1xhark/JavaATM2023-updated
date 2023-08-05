@@ -1,26 +1,32 @@
 # Java ATM-Banking Simulátor
 
-Jednoduchá Java aplikace simulující základní úkony v bance. Tento projekt se zaměřuje na testovaní použítí SQL s Javou.
+Toto je jednoduchý simulátor bankovního ATM, který umožňuje uživatelům interagovat s databází klientů a provádět operace jako přidání klienta, výběr peněz a zjištění zůstatku.
 
-## Popis projektu
+## Funkce
 
-Tato aplikace je rozdělena do dvou hlavních částí (Zatim):
-
-1. **Správa klientů**: Tato část umožňuje vytváření nových klientů a jejich záznamu v databázi. Zde je možnost klienty přidat nebo klienty odebrat. Přidaní klientů obsahuje vygenerování náhodnych proměnnych client_id a card_number. K tomu používáme medotu třídy .util, a to java.util.Random.
-
-2. **ATM operace**: Tato část simuluje interakci s bankomatem. Umožňuje uživatelům získat informace o svém zůstatku a provádět operace jako výběry hotovosti. Aplikace poskytuje uživatelské rozhraní, které umožňuje snadnou interakci s bankomatovými funkcemi.
+- Přidání klienta do databáze
+- Výběr peněz z účtu
+- Zjištění aktuálního zůstatku na účtu
 
 ## Použití
 
-1. **Klientův účet**: Spusťte aplikaci a vytvořte klienty pomocí části "Správa klientů". Toto je jednorázová konfigurace pro naplnění databáze údaji o klientech.
+1. Vytvořte databázi a upravte připojovací údaje k databázi v souboru `LibertyDatabaseConnector.java`.
+2. Spusťte aplikaci spuštěním třídy `ATM` ve vašem IDE nebo přes příkazovou řádku.
 
-2. **Bankomat**: Proveďte různé operace bankomatu, jako je zobrazení zůstatku nebo výběr hotovosti, pomocí části "ATM operace". Ujistěte se, že zadáváte správný identifikační kód klienta a platný PIN pro přístup k účtu.
+## Jak používat ATM simulátor
 
-## Bezpečnost
+1. Spusťte aplikaci.
+2. Vyberte jednu z nabízených možností:
+   - 1 pro přidání klienta
+   - 2 pro výběr peněz
+   - 3 pro zjištění zůstatku
+   - 4 pro ukončení aplikace
+3. Pokračujte podle pokynů na obrazovce a zadejte požadované informace.
 
-Tato aplikace kladný důraz na bezpečnost klientů a ukládání citlivých informací, jako jsou PIN kódy. V případě reálného použití by bylo důležité implementovat další bezpečnostní opatření, jako je šifrování dat a ochrana před útoky.
+## Poznámka
 
-## Autor
+Tato aplikace je pouze simulací a nemá spojení s reálnými bankovními účty nebo operacemi. Používejte ji pouze pro výukové účely.
 
-Tento projekt byl vytvořen Richardem Dubnym jako součást Java Portfolia. Pro více informací mě kontaktujte na richard@dubny.cz.
+## Licence
 
+Tento projekt je licencován pod MIT licencí - více informací najdete v souboru [LICENSE](LICENSE).
