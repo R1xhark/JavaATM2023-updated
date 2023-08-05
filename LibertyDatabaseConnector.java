@@ -1,14 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.banksim;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class LibertyDatabaseConnector {
@@ -187,7 +187,56 @@ public void printBalance(long card_number) throws SQLException {
         System.out.println("SPATNY PIN!! NEZBYVA ZADNY POKUS! BLOKUJI KARTU!");
     }
 }
+public void createClientInfoTableIfNotExists() {
+        try (Connection connection = connector()) {
+            // kontrola jestli tabulka existuje
+            boolean tableExists = false;
+            try (ResultSet tables = connection.getMetaData().getTables(null, null, "Client_info", null)) {
+                while (tables.next()) {
+                    String tableName = tables.getString("TABLE_NAME");
+                    if (tableName.equalsIgnoreCase("Client_info")) {
+                        tableExists = true;
+                        break;
+                    }
+                }
+            }
 
+            if (!tableExists) {
+                // Precte si SQL soubor a pouzije ho jako querry
+                String sqlFilePath = "C:\\Users\\richa\\Documents\\NetBeansProjects\\BankSim\\src\\main\\java\\com\\mycompany\\banksim\\LibertyBankDatabase.sql";
+                String sqlQuery = readSqlFile(sqlFilePath);
+                
+                try (Statement statement = connection.createStatement()) {
+                    statement.executeUpdate(sqlQuery);
+                }
+                
+                System.out.println("Tabulka Client_info byla uspesne vytvorea ");
+            } else {
+                System.out.println("Tabulka client_info jiz v databazi existuje a je v poradku.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Pripojeni k SQL databazi selhalo.");
+            e.printStackTrace();
+        }
+    }
+    
+    private String readSqlFile(String filePath) {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            System.out.println("soubor SQL neexistuje nebo je poskozeny.");
+            e.printStackTrace();
+        }
+        return content.toString();
+    }
+
+
+
+}
 
 }
     
