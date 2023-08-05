@@ -42,7 +42,7 @@ public class NewClient {
                 
                 if(pinCheck==4){
                 LibertyDatabaseConnector clientCreator=new LibertyDatabaseConnector();
-                clientCreator.AddClient(name, cardNumber, pin, id);
+                clientCreator.addClient(name, cardNumber, pin, id);
                 }
                 else{
                     System.out.println("Neplatny pin!!");
