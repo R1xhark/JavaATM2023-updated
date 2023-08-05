@@ -1,42 +1,55 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+package com.mycompany.banksim;
+
+/**
+ *
+ * @author R1xhark
+ */
 import java.util.Scanner;
 
 public class ATM {
-    public void atmOperator() {
-        try {
-            Scanner reader=new Scanner(System.in);
+    private final LibertyDatabaseConnector connector;
+
+    public ATM() {
+        connector = new LibertyDatabaseConnector();
+    }
+
+    public void start() throws SQLExeption {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("LibertyBank ATM Menu");
+            System.out.println("Vitejte!");
+            System.out.println("1. Vybery");
+            System.out.println("2. Zustatek");
+            System.out.println("3. Exit");
+            System.out.print("Vase Volba: ");
             
-            
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String jdbcUrl = "jdbc:mysql://hostname:3306/YourDatabaseName";
-            String dbUsername = "user";
-            String dbPassword = "password";
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline
 
-            Connection atmConnector = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
+            switch (choice) {
+                case 1 -> {
+                    System.out.print("Zadejte cislo karty: ");
+                    long withdrawCardNumber = scanner.nextLong();
+                    System.out.print("Kolik Chcete vybrat?: ");
+                    int withdrawAmount = scanner.nextInt();
+                    connector.vyber(withdrawCardNumber, withdrawAmount);
+                }
 
-            String query = "SELECT client_name, card_number, pin,balance FROM ClientInformation";
-            PreparedStatement preparedStatement = atmConnector.prepareStatement(query);
+                case 2 -> {
+                    System.out.print("Vlozte LibertyBanks Kartu: ");
+                    long checkCardNumber = scanner.nextLong();
+                    connector.printBalance(checkCardNumber);
+                }
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                String clientName = resultSet.getString("client_name");
-                int cardNumber = resultSet.getInt("card_number");
-                int pin = resultSet.getInt("pin");
-                double balance=resultSet.getDouble("balance");
-                // Process the retrieved data as needed
-                
-                if ()
+                case 3 -> {
+                    System.out.println("Ukoncuji ATM, dekuji.");
+                    return;
+                }
+
+                default -> System.out.println("Bohuzel takovou volbu zatim neznam :) vyberte znovu");
             }
-
-            resultSet.close();
-            preparedStatement.close();
-            atmConnector.close();
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
         }
     }
-}
+
+    }
