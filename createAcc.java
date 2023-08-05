@@ -35,8 +35,18 @@ public class NewClient {
                 //Vygenerovani nahodneho 16-mistneho id
                 cardNumber=(long) (randomizer.nextDouble() * 9000000000000000L) + 1000000000000000L;;
                 
+                System.out.println("Prosim vytvorte si 4 mistny pin:");
+                pin=read.nextInt();
+                
+                int pinCheck=String.valueOf(pin).length();
+                
+                if(pinCheck==4){
                 LibertyDatabaseConnector clientCreator=new LibertyDatabaseConnector();
                 clientCreator.AddClient(name, cardNumber, pin, id);
+                }
+                else{
+                    System.out.println("Neplatny pin!!");
+                }
             } else {
                 System.out.println("Věk nesplňuje požadavky pro vytvoření účtu.");
             }
