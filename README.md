@@ -27,10 +27,11 @@ Toto je jednoduchý simulátor bankovního ATM, který umožňuje uživatelům i
 
 ## Objekty
 
-1.Liberty Database Connector - Objekt obsahující metody pro práci s SQL databází ( připojení, vytvoření uživatele, výpis zůstatku na účtu ). Tento program také obsahuje metodu která když při spuštění nenajde korespondující tabulku v databázi tak jí scriptem vytvoří.
-2.atm - objekt který slouží jako samotný emulátor, výběr, vklad, kontrola pinu.
-3.NewClient - objekt který spouštíme abychom databázi nabily uživateli
-4.BankSim - Úvodní menu které používáme pro navigaci v programu
+1.** Liberty Database Connector** - Objekt obsahující metody pro práci s SQL databází ( připojení, vytvoření uživatele, výpis zůstatku na účtu ). Tento program také obsahuje metodu která když při spuštění nenajde korespondující tabulku v databázi tak jí scriptem vytvoří.
+
+2.** atm ** - objekt který slouží jako samotný emulátor, výběr, vklad, kontrola pinu.
+3.** NewClient ** - objekt který spouštíme abychom databázi nabily uživateli
+4.** BankSim ** - Úvodní menu které používáme pro navigaci v programu
 
 ## Poznámka
 
